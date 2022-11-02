@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -62,6 +63,11 @@ class ProductController extends Controller
         if ($price_from)
         {
             $product->where('price', '>=', $price_from);
+        }
+
+        if ($price_to)
+        {
+            $product->where('price', '<=', $price_to);
         }
 
         if ($categories)
