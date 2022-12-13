@@ -87,7 +87,25 @@ class UserController extends Controller
         }
     }
 
-    public function fetch(Request $request) {
+    public function fetch(Request $request) 
+    {
         return ResponseFormatter::success($request->user(), 'Data Profile User Behasil Diambil');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $data = $request->all();
+
+        $user = Auth::user();
+        $user->update($data);
+
+        return ResponseFormatter::success($user, 'Profile Updated');
+    }
+
+    public function logout(Request $request) 
+    {
+        $token = $request->user()->currentAccessToken()->delete();
+
+        return ResponseFormatter::success($token, 'Token Revoked');
     }
 }
